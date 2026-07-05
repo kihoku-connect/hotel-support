@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>宿泊施設向け 販売促進・OTA改善サポート｜きほくコネクト</title>
+<meta name="description" content="三重県・東紀州・紀北町周辺の宿泊施設向けに、OTA改善、宿泊プラン作成、口コミ返信、Instagram連携、月次レポート、立ち上げ時の整理を支援します。いまある写真とプランから、予約導線を整えます。">
+
+<!-- ============================================================
+  CONFIG：ここを書き換えるだけでリンク先を差し替えられます
+============================================================ -->
+<script>
+const CONFIG = {
+  EMAIL: "kihokuconnect@gmail.com",                    // 問い合わせ先メールアドレス
+  PORTFOLIO_URL: "#",                                  // ポートフォリオのURL（完成したらここに入れる）
+  LEMON_URL: "https://iseji-lemon-farm.github.io/lp/", // 伊勢路レモン農園LPのURL
+  AI_SUPPORT_URL: "#"                                  // きほくコネクトAI導入支援LPのURL
+};
+// ※ "#" のままのリンクはフッターに表示されません。URLを入れると自動で表示されます。
+</script>
+
+<style>
+/* ==========================================================
+   トーン：白・生成り・淡い緑・薄いグレー
+   地域の宿泊施設が相談しやすい、落ち着いた雰囲気
+========================================================== */
+:root{
+  --paper:      #FDFCF8;  /* ベースの白（わずかに生成り寄り） */
+  --ecru:       #F4F0E5;  /* 生成りの帯 */
+  --ecru-soft:  #F9F6EE;  /* カード背景 */
+  --green:      #6E8F74;  /* 淡い緑（アクセント） */
+  --green-deep: #47654E;  /* 濃い緑（ボタン・見出し） */
+  --green-pale: #EAF0EA;  /* ごく淡い緑の面 */
+  --ink:        #3A403B;  /* 本文 */
+  --ink-soft:   #6E736E;  /* 補足テキスト */
+  --line:       #E2DFD3;  /* 罫線 */
+  --sans: "Tsukushi A Round Gothic","TsukuARdGothic-Regular","筑紫A丸ゴシック","Hiragino Maru Gothic ProN","Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic Medium","Yu Gothic","Noto Sans JP",-apple-system,BlinkMacSystemFont,"Segoe UI",Meiryo,sans-serif;
+  --serif: "Tsukushi A Round Gothic","TsukuARdGothic-Bold","筑紫A丸ゴシック","Hiragino Maru Gothic ProN","Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *,*::before,*::after{ animation:none !important; transition:none !important; }
+}
+body{
+  font-family:var(--sans);
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.9;
+  font-size:16px;
+  -webkit-font-smoothing:antialiased;
+  overflow-wrap:anywhere;
+}
+img{ max-width:100%; display:block; }
+a{ color:var(--green-deep); }
+a:focus-visible, button:focus-visible, summary:focus-visible{
+  outline:3px solid var(--green);
+  outline-offset:3px;
+  border-radius:4px;
+}
+
+.wrap{ max-width:960px; margin:0 auto; padding:0 20px; }
+.narrow{ max-width:720px; margin:0 auto; }
+
+section{ padding:64px 0; }
+.band-ecru{ background:var(--ecru); }
+.band-pale{ background:var(--green-pale); }
+
+/* 見出しまわり */
+.eyebrow{
+  display:inline-block;
+  font-size:12px;
+  letter-spacing:.22em;
+  color:var(--green-deep);
+  border:1px solid var(--green);
+  border-radius:999px;
+  padding:4px 14px;
+  margin-bottom:16px;
+  background:var(--paper);
+}
+h2{
+  font-family:var(--serif);
+  font-weight:700;
+  font-size:clamp(22px, 4.6vw, 30px);
+  line-height:1.6;
+  letter-spacing:.04em;
+  margin-bottom:20px;
+}
+.lead{ color:var(--ink); margin-bottom:8px; }
+.note{ font-size:14px; color:var(--ink-soft); }
+
+/* ============ ヘッダー ============ */
+header{
+  background:var(--paper);
+  border-bottom:1px solid var(--line);
+  position:sticky; top:0; z-index:50;
+}
+.header-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 20px; max-width:960px; margin:0 auto;
+}
+.brand{ display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink); padding:6px 0; }
+.brand-name{ font-size:15.5px; font-weight:700; letter-spacing:.06em; line-height:1.4; }
+.brand-name small{ display:block; font-size:11px; font-weight:400; color:var(--ink-soft); letter-spacing:.12em; line-height:1.4; }
+.header-cta{
+  font-size:13px; text-decoration:none;
+  background:var(--green-deep); color:#fff;
+  padding:9px 14px; border-radius:999px;
+  white-space:nowrap;
+}
+
+/* ============ ファーストビュー ============ */
+/* スマホ：写真を上に表示し、その下の生成り背景に文字を置く（A案） */
+.hero{
+  background:var(--paper);
+  position:relative;
+  overflow:hidden;
+  padding:0 0 52px;
+}
+.hero-photo{
+  position:relative;
+  height:232px;
+}
+.hero-photo img{
+  width:100%; height:100%;
+  object-fit:cover; object-position:72% 45%;
+  display:block;
+}
+.hero-photo::after{
+  content:"";
+  position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(253,252,248,0) 60%, var(--paper) 100%);
+}
+.hero-inner{ position:relative; z-index:1; padding-top:18px; }
+.hero-text{ max-width:620px; text-align:left; }
+/* PC：写真を背景全面に敷き、左から右へ生成りのグラデーションを重ねる */
+@media (min-width:760px){
+  .hero{ padding:104px 0 92px; }
+  .hero-photo{
+    position:absolute; inset:0; height:auto; z-index:0;
+  }
+  .hero-photo::after{
+    background:
+      linear-gradient(90deg,
+        rgba(253,252,248,0.92) 0%,
+        rgba(253,252,248,0.72) 45%,
+        rgba(253,252,248,0.18) 78%,
+        rgba(253,252,248,0.12) 100%),
+      linear-gradient(180deg, rgba(253,252,248,0) 72%, var(--paper) 100%);
+  }
+  .hero-inner{ padding-top:0; }
+}
+.hero h1{
+  font-family:var(--serif);
+  font-weight:700;
+  font-size:clamp(26px, 6.2vw, 40px);
+  line-height:1.45;
+  letter-spacing:.05em;
+  margin-bottom:16px;
+  color:#2E332F;
+}
+.hero h1 .accent{
+  box-shadow:inset 0 -8px 0 rgba(110,143,116,0.22);
+}
+.hero p{ margin-bottom:18px; color:#2E332F; }
+.hero-note{ font-size:13px; color:#5C625C; margin-top:14px; letter-spacing:.04em; }
+
+/* CTAボタン */
+.btn{
+  display:inline-block;
+  background:var(--green-deep);
+  color:#fff;
+  text-decoration:none;
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:.04em;
+  padding:16px 30px;
+  border-radius:999px;
+  box-shadow:0 2px 0 rgba(58,64,59,.18);
+  transition:background .2s ease, transform .1s ease;
+}
+.btn:hover{ background:var(--green); }
+.btn:active{ transform:translateY(1px); }
+.btn-caption{ font-size:13px; color:var(--ink-soft); margin-top:12px; }
+
+/* ============ 困りごと ============ */
+.check-list{ list-style:none; margin-top:8px; }
+.check-list li{
+  position:relative;
+  padding:12px 12px 12px 44px;
+  border-bottom:1px dashed var(--line);
+  font-size:15px;
+}
+.check-list li::before{
+  content:"";
+  position:absolute; left:10px; top:18px;
+  width:18px; height:18px;
+  border:2px solid var(--green);
+  border-radius:4px;
+  background:#fff;
+}
+.check-list li::after{
+  content:"✓";
+  position:absolute; left:13px; top:12px;
+  color:var(--green-deep);
+  font-size:14px; font-weight:700;
+}
+.closing-line{
+  margin-top:24px;
+  padding:16px 20px;
+  background:var(--ecru-soft);
+  border-left:4px solid var(--green);
+  border-radius:0 8px 8px 0;
+  font-size:15px;
+}
+
+/* ============ 予約前の不安 ============ */
+.fuan-list{ list-style:none; display:grid; gap:10px; margin:20px 0; }
+.fuan-list li{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:14px 16px;
+  font-size:15px;
+  line-height:1.7;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.fuan-list li::before{
+  content:"？";
+  flex:none;
+  width:22px; height:22px; line-height:22px;
+  text-align:center;
+  background:var(--green-pale);
+  color:var(--green-deep);
+  border-radius:50%;
+  font-size:12px; font-weight:700;
+}
+@media (min-width:640px){
+  .fuan-list{ grid-template-columns:1fr 1fr; }
+}
+
+/* ============ 特徴 ============ */
+.feature-flex{ display:grid; gap:28px; align-items:start; }
+@media (min-width:760px){
+  .feature-flex{ grid-template-columns:5fr 4fr; }
+}
+.photo-frame{
+  border-radius:14px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  background:var(--green-pale);
+  aspect-ratio:4/3;
+  position:relative;
+}
+.photo-frame::after{
+  content:attr(data-label);
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  color:var(--green-deep);
+  font-size:13px; letter-spacing:.1em;
+  z-index:0;
+}
+.photo-frame img{
+  position:relative; z-index:1;
+  width:100%; height:100%; object-fit:cover;
+}
+.photo-square{ aspect-ratio:1/1; max-width:340px; }
+.photo-square img,
+.photo-portrait img{ object-position:center 38%; }
+
+/* ============ 支援できること ============ */
+.cards{ display:grid; gap:16px; margin-top:8px; }
+@media (min-width:640px){ .cards{ grid-template-columns:1fr 1fr; } }
+.card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:24px 22px;
+}
+.card h3{
+  font-size:17px;
+  font-weight:700;
+  margin-bottom:10px;
+  color:var(--green-deep);
+  display:flex; align-items:baseline; gap:10px;
+  line-height:1.5;
+}
+.card h3 .num{
+  font-family:var(--serif);
+  font-size:13px;
+  color:var(--green);
+  letter-spacing:.08em;
+  flex:none;
+}
+.card p{ font-size:14.5px; }
+.card .caution{ font-size:13px; color:var(--ink-soft); margin-top:10px; }
+
+
+/* ============ 進め方 ============ */
+.steps{ list-style:none; counter-reset:step; margin-top:8px; }
+.steps li{
+  counter-increment:step;
+  position:relative;
+  padding:0 0 28px 60px;
+}
+.steps li::before{
+  content:counter(step);
+  position:absolute; left:0; top:0;
+  width:40px; height:40px; line-height:40px;
+  text-align:center;
+  background:#fff;
+  border:2px solid var(--green);
+  color:var(--green-deep);
+  border-radius:50%;
+  font-family:var(--serif);
+  font-size:17px; font-weight:700;
+}
+.steps li:not(:last-child)::after{
+  content:"";
+  position:absolute; left:19px; top:44px; bottom:4px;
+  width:2px;
+  background:var(--line);
+}
+.steps h3{ font-size:16.5px; font-weight:700; margin-bottom:4px; }
+.steps p{ font-size:14.5px; color:var(--ink); }
+
+/* ============ 初回相談 ============ */
+.two-col{ display:grid; gap:20px; margin-top:8px; }
+@media (min-width:760px){ .two-col{ grid-template-columns:1fr 1fr; } }
+.box{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:24px 22px;
+}
+.box h3{
+  font-size:16px; font-weight:700;
+  margin-bottom:14px;
+  padding-bottom:10px;
+  border-bottom:2px solid var(--green-pale);
+  color:var(--green-deep);
+}
+.dot-list{ list-style:none; }
+.dot-list li{
+  position:relative;
+  padding:6px 0 6px 20px;
+  font-size:14.5px;
+}
+.dot-list li::before{
+  content:"";
+  position:absolute; left:2px; top:16px;
+  width:7px; height:7px;
+  background:var(--green);
+  border-radius:50%;
+}
+
+/* ============ 料金 ============ */
+.price-cards{ display:grid; gap:16px; margin-top:8px; }
+@media (min-width:760px){ .price-cards{ grid-template-columns:1fr 1fr 1fr; } }
+.price-card{
+  background:var(--ecru-soft);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:26px 22px;
+  display:flex; flex-direction:column;
+}
+.price-card h3{
+  font-size:16.5px; font-weight:700;
+  margin-bottom:12px;
+}
+.price-card .price{
+  font-family:var(--serif);
+  font-size:21px;
+  color:var(--green-deep);
+  margin-bottom:14px;
+  letter-spacing:.02em;
+}
+.price-card .price small{ font-size:13px; color:var(--ink-soft); font-family:var(--sans); }
+.price-card p{ font-size:14px; }
+.price-notes{
+  margin-top:24px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:20px 24px;
+}
+.price-notes ul{ list-style:none; }
+.price-notes li{
+  position:relative;
+  padding:4px 0 4px 20px;
+  font-size:14px;
+  color:var(--ink);
+}
+.price-notes li::before{
+  content:"※";
+  position:absolute; left:0; top:4px;
+  color:var(--green-deep);
+  font-size:13px;
+}
+.cta-block{ text-align:center; margin-top:36px; }
+
+/* ============ 対象施設 ============ */
+.chips{ display:flex; flex-wrap:wrap; gap:10px; margin:16px 0 20px; }
+.chip{
+  background:#fff;
+  border:1px solid var(--green);
+  color:var(--green-deep);
+  border-radius:999px;
+  padding:7px 18px;
+  font-size:14px;
+}
+
+/* ============ プロフィール ============ */
+.profile{ display:grid; gap:28px; align-items:start; }
+@media (min-width:760px){ .profile{ grid-template-columns:320px 1fr; gap:44px; } }
+.photo-portrait{ aspect-ratio:1/1; max-width:320px; margin:0 auto; border-radius:14px; }
+@media (min-width:760px){ .photo-portrait{ margin:0; } }
+.photo-portrait img{ object-position:center; }
+.profile-head{
+  padding-bottom:14px;
+  margin-bottom:18px;
+  border-bottom:2px solid var(--green-pale);
+}
+.profile-name{
+  font-family:var(--serif);
+  font-size:24px;
+  margin-bottom:2px;
+  letter-spacing:.08em;
+}
+.profile-kana{ font-size:13px; color:var(--ink-soft); letter-spacing:.14em; margin-bottom:8px; }
+.profile-role{ font-size:13px; color:var(--green-deep); letter-spacing:.06em; }
+.profile-body p{ font-size:15px; margin-bottom:12px; }
+.profile-tools{
+  margin-top:22px;
+  padding-top:18px;
+  border-top:1px dashed var(--line);
+}
+.profile-tools-title{
+  font-size:13px;
+  font-weight:700;
+  color:var(--green-deep);
+  letter-spacing:.04em;
+  margin-bottom:10px;
+}
+.profile-tools .chips{ margin:0 0 8px; }
+.chips-small .chip{ font-size:12.5px; padding:5px 14px; }
+.chip-hidden{ display:none; }
+[hidden]{ display:none !important; }
+.chip-toggle{
+  cursor:pointer;
+  font-family:inherit;
+  background:var(--green-pale);
+  border:1px dashed var(--green);
+  color:var(--green-deep);
+}
+.chip-toggle:hover{ background:#fff; }
+.tools-full{ margin-bottom:8px; }
+.tools-group{ margin-bottom:14px; }
+.tools-group-title{
+  font-size:12px;
+  font-weight:700;
+  color:var(--ink-soft);
+  letter-spacing:.04em;
+  margin-bottom:6px;
+}
+.tools-group .chips{ margin:0; }
+.chips-etc{ font-size:12px; color:var(--ink-soft); align-self:center; }
+.tools-full > .note{ margin-bottom:10px; }
+.profile-tools .note{ font-size:12px; }
+
+/* ============ FAQ ============ */
+.faq{ margin-top:8px; }
+.faq details{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:12px;
+  margin-bottom:12px;
+  overflow:hidden;
+}
+.faq summary{
+  list-style:none;
+  cursor:pointer;
+  padding:18px 48px 18px 20px;
+  font-weight:700;
+  font-size:15px;
+  position:relative;
+  line-height:1.7;
+}
+.faq summary::-webkit-details-marker{ display:none; }
+.faq summary::before{
+  content:"Q";
+  color:var(--green-deep);
+  font-family:var(--serif);
+  margin-right:10px;
+}
+.faq summary::after{
+  content:"＋";
+  position:absolute; right:18px; top:50%;
+  transform:translateY(-50%);
+  color:var(--green);
+  font-size:18px;
+}
+.faq details[open] summary::after{ content:"－"; }
+.faq .answer{
+  padding:0 20px 18px 20px;
+  font-size:14.5px;
+  color:var(--ink);
+  border-top:1px dashed var(--line);
+  padding-top:14px;
+  margin:0 0 0 0;
+}
+.faq .answer::before{
+  content:"A. ";
+  color:var(--green-deep);
+  font-weight:700;
+}
+
+/* ============ クロージング ============ */
+.closing{
+  text-align:center;
+  background:var(--ecru);
+}
+.closing h2{ margin-bottom:16px; }
+.closing p{ max-width:620px; margin:0 auto 26px; }
+.mail-hint{
+  margin-top:22px;
+  display:inline-block;
+  background:#fff;
+  border:1px dashed var(--line);
+  border-radius:10px;
+  padding:14px 20px;
+  font-size:13px;
+  color:var(--ink-soft);
+  text-align:left;
+}
+
+/* ============ フッター ============ */
+footer{
+  background:var(--paper);
+  border-top:1px solid var(--line);
+  padding:36px 0 44px;
+  font-size:13.5px;
+}
+.footer-logo{ width:140px; height:auto; object-fit:contain; margin-bottom:14px; }
+.footer-brand{ font-weight:700; margin-bottom:10px; letter-spacing:.04em; }
+.footer-links{ list-style:none; display:flex; flex-wrap:wrap; gap:8px 22px; margin:12px 0 16px; }
+.footer-links a{ color:var(--green-deep); text-decoration:none; border-bottom:1px solid var(--green-pale); }
+.footer-links a:hover{ border-bottom-color:var(--green); }
+.copyright{ color:var(--ink-soft); font-size:12px; }
+</style>
+</head>
+<body>
+
+<!-- ============ ヘッダー ============ -->
+<header>
+  <div class="header-inner">
+    <a class="brand" href="#top">
+      <span class="brand-name">きほくコネクト<small>宿泊施設サポート</small></span>
+    </a>
+    <a class="header-cta js-cta" href="#">相談する</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ ① ファーストビュー ============ -->
+<section class="hero">
+  <div class="hero-photo" aria-hidden="true">
+    <img src="farm.jpg" alt="" onerror="this.parentElement.remove()">
+  </div>
+  <div class="wrap hero-inner">
+    <div class="hero-text">
+      <h1>いまある写真とプランから、<br><span class="accent">予約導線を整える。</span></h1>
+      <p>OTAのプラン、写真の順番、口コミ返信、Instagram。<br>忙しい毎日の中で後回しになっている販売ページを、現場に無理のない形で一緒に見直します。</p>
+      <a class="btn js-cta" href="#">宿泊施設の販売ページを相談してみる</a>
+      <p class="hero-note">三重県・東紀州・紀北町周辺の宿泊施設向け｜オンライン相談可</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ② 困りごと ============ -->
+<section>
+  <div class="wrap narrow">
+    <span class="eyebrow">お困りごと</span>
+    <h2>こんなこと、後回しになっていませんか</h2>
+    <p class="lead">宿の仕事は、チェックイン、清掃、食事、予約対応と、毎日やることが途切れません。<br>販売ページの見直しが後回しになるのは、当たり前のことです。</p>
+    <ul class="check-list">
+      <li>OTAのプランが、何年か前のまま更新されていない</li>
+      <li>写真の順番や見せ方が、いまの施設の良さと合っていない</li>
+      <li>プラン名が「スタンダードプラン」「お得プラン」ばかりで違いが伝わらない</li>
+      <li>季節の売り方が、毎年その場しのぎになっている</li>
+      <li>口コミへの返信が、気になりつつも後回しになっている</li>
+      <li>宿泊前の案内やFAQが整理されておらず、同じ質問に何度も答えている</li>
+      <li>Instagramは投稿しているが、予約につながっている実感がない</li>
+      <li>公式サイト・OTA・SNSで、書いてあることがバラバラになっている</li>
+      <li>平日、閑散期、雨の日、家族旅行、一人旅などの打ち出しが弱い</li>
+      <li>お客様が予約前に感じる不安に、ページ上で答えきれていない気がする</li>
+      <li>月ごとの振り返りや改善メモを作れていない</li>
+      <li>立ち上げ準備中で、販売導線や運営ルールの整理が追いついていない</li>
+    </ul>
+    <p class="closing-line">どれか1つでも当てはまれば、相談いただく理由としては十分です。<br>全部を一度に直す必要はありません。</p>
+  </div>
+</section>
+
+<!-- ============ ③ 予約前の不安 ============ -->
+<section class="band-pale">
+  <div class="wrap narrow">
+    <span class="eyebrow">予約前の不安</span>
+    <h2>販売ページの仕事は、<br>魅力を伝えることだけではありません</h2>
+    <p class="lead">お客様は、予約ボタンを押す前に、小さな不安をいくつも抱えています。<br>販売ページの大切な役目のひとつは、その不安に先回りして答えておくことです。</p>
+    <p style="margin-top:10px;">たとえば、こんな不安です。</p>
+    <ul class="fuan-list">
+      <li>子ども連れでも過ごしやすいか</li>
+      <li>雨の日でも楽しめるか</li>
+      <li>駐車場やアクセスで迷わないか</li>
+      <li>チェックイン方法がわかりやすいか</li>
+      <li>食事の内容や量がイメージできるか</li>
+      <li>一棟貸しやキャンプ場の場合、設備やルールがわかりやすいか</li>
+    </ul>
+    <p>ページを見ても不安が残ると、お客様は問い合わせをするか、静かに離脱します。<br>「予約前に聞きたくなることを、先にページで答えておく」──この視点で、写真、プラン本文、FAQ、宿泊前の案内を見直していきます。</p>
+  </div>
+</section>
+
+<!-- ============ ④ この支援の特徴 ============ -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow">この支援の特徴</span>
+    <h2>「宿の現場」と「販売ページ」、両方を見ます</h2>
+    <div class="feature-flex">
+      <div>
+        <p class="lead">私はホテル・旅館の現場で約8年、フロント、レストラン、調理補助、予約、営業を経験してきました。<br>その後は、一棟貸しの立ち上げ・運営サポートや、三重県内の宿泊施設のOTA登録、プラン作成、SNS運用にも関わっています。</p>
+        <p class="lead" style="margin-top:14px;">だから、「理想の販売ページ」を押しつけることはしません。<br>清掃の合間に返信するしかない口コミも、繁忙期には触れないOTA管理画面も、現場の事情としてわかります。</p>
+        <p class="lead" style="margin-top:14px;">いまあるページ、写真、プラン、口コミ、予約導線から、<strong>できるところだけ</strong>を一緒に整えていきます。</p>
+      </div>
+      <div class="photo-frame photo-square" data-label="相談を受ける人">
+        <img src="profile2.jpg" alt="デスクで相談を受ける氏原翔平" onerror="this.remove()">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ⑤ 支援できること ============ -->
+<section class="band-ecru">
+  <div class="wrap">
+    <span class="eyebrow">支援内容</span>
+    <h2>支援できること</h2>
+    <div class="cards">
+      <div class="card">
+        <h3><span class="num">01</span>OTA改善</h3>
+        <p>プラン名、プラン本文、写真の順番、客室説明、館内説明、周辺情報、料金カレンダー、販売期間、在庫、特典の表現、注意事項などを見直します。「登録したまま」になっているページを、いまの施設に合わせて整えます。</p>
+      </div>
+      <div class="card">
+        <h3><span class="num">02</span>宿泊プラン作成</h3>
+        <p>季節プラン、家族向け、カップル向け、一人旅、記念日、連泊、直前予約、雨の日、平日、閑散期向けなど。地域の体験と組み合わせたプランづくりもご相談いただけます。</p>
+      </div>
+      <div class="card">
+        <h3><span class="num">03</span>口コミ返信・宿泊前メッセージ</h3>
+        <p>口コミ返信の「型」を作り、返信が後回しにならない仕組みにします。宿泊前の案内文、FAQ、道案内、持ち物リスト、チェックイン方法の説明など、お客様が予約前・到着前に感じる不安を減らす文章を整えます。</p>
+      </div>
+      <div class="card">
+        <h3><span class="num">04</span>Instagram・SNS連携</h3>
+        <p>投稿を作って終わり、にはしません。OTA、公式サイト、問い合わせ、予約への導線までを見ます。宿泊施設の投稿では、施設紹介だけでなく「滞在のイメージ」「誰に合う宿か」「雨の日の過ごし方」「子ども連れの不安解消」を重視します。</p>
+      </div>
+      <div class="card">
+        <h3><span class="num">05</span>販促ページ・動画づくり</h3>
+        <p>キャンペーン用のページ、宿の紹介ページ、簡単な販促動画など、OTAや公式サイトを補う「見せ場」を作ります。凝った制作ではなく、いまある写真や素材を活かして、予約導線につながる形に整えます。</p>
+      </div>
+      <div class="card">
+        <h3><span class="num">06</span>月次レポート・改善メモ</h3>
+        <p>見られた数、予約ページに進んだ数、口コミ、写真、プラン、季節需要を月1回振り返り、翌月の改善案を3つ程度に絞ります。「やりっぱなし」を防ぐための、軽い振り返りの仕組みです。</p>
+      </div>
+      <div class="card">
+        <h3><span class="num">07</span>立ち上げ時の整理</h3>
+        <p>コンセプト、ターゲット、客室・サイト情報、チェックイン導線、清掃・リネン、ハウスルール、予約前ヒアリング、OTA登録、写真素材、販売開始前チェックリストまで。開業準備で散らかりがちな項目を整理します。</p>
+        <p class="caution">※許認可、消防、建築、税務などの判断は、必ず各専門家に確認してください。</p>
+      </div>
+      <div class="card">
+        <h3><span class="num">08</span>AI・業務改善の補助</h3>
+        <p>口コミ返信、FAQ、宿泊前メッセージ、月次レポート、プラン説明文などの下書きや型づくりに、必要に応じてAIを使います。AIを使うこと自体が目的ではなく、現場の手間を減らすための道具として使います。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ⑥ 進め方 ============ -->
+<section>
+  <div class="wrap narrow">
+    <span class="eyebrow">進め方</span>
+    <h2>進め方 — 小さく直して、様子を見る</h2>
+    <ol class="steps">
+      <li>
+        <h3>初回ヒアリング</h3>
+        <p>施設の状況、困りごと、販売導線、現場の負担をお聞きします。</p>
+      </li>
+      <li>
+        <h3>現状ページを見る</h3>
+        <p>OTA、公式サイト、Instagram、口コミ、写真、予約導線を一緒に確認します。</p>
+      </li>
+      <li>
+        <h3>改善候補を3つに絞る</h3>
+        <p>すぐ直せること／少し時間がかかること／後回しでよいことを分けます。</p>
+      </li>
+      <li>
+        <h3>最初の1つを決める</h3>
+        <p>施設側がすぐ動ける改善から始めます。</p>
+      </li>
+      <li>
+        <h3>たたき台を作る</h3>
+        <p>プラン文、口コミ返信、写真の順番、Instagram導線、FAQ、宿泊前メッセージなどを作ります。</p>
+      </li>
+      <li>
+        <h3>公開・運用して様子を見る</h3>
+        <p>変更後の反応を見て、次の改善につなげます。</p>
+      </li>
+    </ol>
+    <p class="closing-line">一度に全部は直しません。現場が回る範囲で、少しずつ整えていきます。</p>
+  </div>
+</section>
+
+<!-- ============ ⑦ 初回相談で見るもの ============ -->
+<section class="band-ecru">
+  <div class="wrap">
+    <span class="eyebrow">初回相談</span>
+    <h2>初回相談では、こんなものを一緒に見ます</h2>
+    <p class="lead">初回相談では、主に次のようなものを一緒に見ながら、「どこから直すとよさそうか」を確認します。<br>すべて揃っている必要はありません。あるものだけで大丈夫です。</p>
+    <div class="two-col">
+      <div class="box">
+        <h3>一緒に確認すること</h3>
+        <ul class="dot-list">
+          <li>現在販売しているOTAページ／公式サイト／InstagramなどのSNS</li>
+          <li>写真素材、販売中の宿泊プラン、口コミ</li>
+          <li>予約導線（お客様が予約までにたどる流れ）</li>
+          <li>平日と休日の埋まり方、季節ごとの強い時期・弱い時期</li>
+          <li>増やしたい客層、施設として伝えたいこと</li>
+          <li>お客様が予約前に不安に思いそうなこと（アクセス、チェックイン方法、食事、設備、ルールなど）</li>
+          <li>現場で対応できること・できないこと</li>
+          <li>（立ち上げ中の場合）許認可、消防、建築、税務などを専門家に確認済みか</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>見せていただけると話が早いもの</h3>
+        <ul class="dot-list">
+          <li>OTA管理画面、販売中のプラン一覧</li>
+          <li>写真フォルダ、口コミ一覧</li>
+          <li>公式サイト、Instagram</li>
+          <li>お客様向けの案内文、チェックイン案内</li>
+          <li>清掃表、リネン表、ハウスルール</li>
+          <li>過去の月次レポートや売上メモ</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ⑧ 料金の目安 ============ -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow">料金の目安</span>
+    <h2>料金の目安</h2>
+    <p class="lead">料金は確定価格ではなく、目安です。<br>施設の規模、販売チャネル、支援範囲に合わせてお見積もりします。</p>
+    <div class="price-cards">
+      <div class="price-card">
+        <h3>宿泊販売ページ診断</h3>
+        <p class="price">33,000円<small>（税込）〜</small></p>
+        <p>1回90分を目安に、OTA、公式サイト、Instagram、口コミ、写真、宿泊プランを一緒に見ながら、まず直すべき改善点を3つに絞ります。</p>
+      </div>
+      <div class="price-card">
+        <h3>販売ページ改善パック</h3>
+        <p class="price">88,000円<small>（税込）〜</small></p>
+        <p>OTAプラン名、プラン本文、写真の順番、客室説明、口コミ返信テンプレート、宿泊前メッセージ、FAQなど、販売ページまわりをまとめて整えます。支援範囲によりお見積もりします。</p>
+      </div>
+      <div class="price-card">
+        <h3>月次サポート</h3>
+        <p class="price">55,000円<small>（税込）／月〜</small></p>
+        <p>月1回の振り返りをベースに、OTA改善、季節プラン、口コミ返信、Instagram導線、月次改善メモなどを継続的に見ていきます。</p>
+        <p style="margin-top:8px;">月次サポートは、施設の状況に合わせて内容を決めます。まずは1ヶ月分の改善メモから始めることもできます。</p>
+      </div>
+    </div>
+    <div class="price-notes">
+      <ul>
+        <li>施設の規模、販売チャネル、支援範囲によって内容と料金は変わります。</li>
+        <li>売上や予約数の増加を保証するものではありません。</li>
+        <li>まずは、いまの販売ページを見ながら、どこから直すとよさそうかを一緒に確認します。</li>
+      </ul>
+    </div>
+    <div class="cta-block">
+      <a class="btn js-cta" href="#">宿泊施設の販売ページを相談してみる</a>
+      <p class="btn-caption">どのプランが合うかわからない場合も、まずはメールでご相談ください。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ⑨ 対象施設 ============ -->
+<section class="band-pale">
+  <div class="wrap narrow">
+    <span class="eyebrow">対象施設</span>
+    <h2>対象となる宿泊施設</h2>
+    <div class="chips">
+      <span class="chip">ホテル</span>
+      <span class="chip">旅館</span>
+      <span class="chip">民宿</span>
+      <span class="chip">一棟貸し</span>
+      <span class="chip">貸別荘</span>
+      <span class="chip">ゲストハウス</span>
+      <span class="chip">キャンプ場</span>
+      <span class="chip">グランピング</span>
+      <span class="chip">簡易宿所</span>
+      <span class="chip">体験施設を併設する宿泊施設</span>
+    </div>
+    <p class="lead">上記以外でも、宿泊販売や予約導線に課題がある場合はご相談ください。</p>
+  </div>
+</section>
+
+<!-- ============ ⑩ プロフィール ============ -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow">プロフィール</span>
+    <h2>プロフィール</h2>
+    <div class="profile">
+      <div class="photo-frame photo-portrait" data-label="顔写真">
+        <img src="profile.jpg" alt="氏原翔平の写真" onerror="this.remove()">
+      </div>
+      <div class="profile-body">
+        <div class="profile-head">
+          <p class="profile-name">氏原 翔平</p>
+          <p class="profile-kana">うじはら しょうへい</p>
+          <p class="profile-role">きほくコネクト／伊勢路レモン農園</p>
+        </div>
+        <p>三重県紀北町で、伊勢路レモン農園を運営しています。</p>
+        <p>過去にホテル・旅館で約8年勤務し、フロント、レストラン、調理補助、予約、営業を経験しました。</p>
+        <p>その後、一棟貸しの立ち上げ・運営サポート、三重県内の宿泊施設の販売促進、OTA登録、プラン作成、SNS運用、販促用ページ制作などにも関わってきました。</p>
+        <p>現在は、きほくコネクトとして、地域の宿泊施設や事業者の販促、AI・業務改善、地域のコーディネートを行っています。</p>
+        <p>宿泊施設の支援では、現場の忙しさと、販売ページの見え方の両方を大切にしています。</p>
+        <div class="profile-tools">
+          <p class="profile-tools-title">これまでに扱ってきた主な販売チャネル・システム</p>
+          <div class="chips chips-small" id="tool-chips">
+            <span class="chip">じゃらんnet</span>
+            <span class="chip">楽天トラベル</span>
+            <span class="chip">TLリンカーン</span>
+            <span class="chip">ねっぱん！</span>
+            <button type="button" class="chip chip-toggle" id="chips-toggle">すべて見る ＋</button>
+          </div>
+          <div class="tools-full" id="tools-full" hidden>
+            <div class="tools-group">
+              <p class="tools-group-title">OTA（宿泊予約サイト）</p>
+              <div class="chips chips-small">
+                <span class="chip">じゃらんnet</span>
+                <span class="chip">楽天トラベル</span>
+                <span class="chip">るるぶトラベル</span>
+                <span class="chip">一休.com</span>
+                <span class="chip">Yahoo!トラベル</span>
+                <span class="chip">Relux</span>
+                <span class="chip">ゆこゆこネット</span>
+                <span class="chip">らくだ倶楽部</span>
+                <span class="chip">ベストリザーブ</span>
+                <span class="chip">e宿</span>
+                <span class="chip">Vacation STAY</span>
+                <span class="chip">Booking.com</span>
+                <span class="chip">Expedia</span>
+                <span class="chip">Agoda</span>
+                <span class="chips-etc">など</span>
+              </div>
+            </div>
+            <div class="tools-group">
+              <p class="tools-group-title">PMS（ホテル管理システム）</p>
+              <div class="chips chips-small">
+                <span class="chip">インチャージ7</span>
+                <span class="chip">陣屋コネクト</span>
+              </div>
+            </div>
+            <div class="tools-group">
+              <p class="tools-group-title">サイトコントローラー</p>
+              <div class="chips chips-small">
+                <span class="chip">TLリンカーン</span>
+                <span class="chip">ねっぱん！</span>
+                <span class="chip">Beds24</span>
+              </div>
+            </div>
+            <div class="tools-group">
+              <p class="tools-group-title">リアルエージェント（旅行会社）</p>
+              <div class="chips chips-small">
+                <span class="chip">JTB</span>
+                <span class="chip">日本旅行</span>
+                <span class="chip">近畿日本ツーリスト</span>
+                <span class="chip">JR</span>
+                <span class="chips-etc">など</span>
+              </div>
+            </div>
+            <div class="tools-group">
+              <p class="tools-group-title">自社予約サイト</p>
+              <div class="chips chips-small">
+                <span class="chip">Direct In</span>
+                <span class="chip">宿シス</span>
+                <span class="chip">予約番</span>
+                <span class="chip">Tripla CM</span>
+                <span class="chips-etc">など</span>
+              </div>
+            </div>
+            <div class="tools-group">
+              <p class="tools-group-title">SNS・Web運用</p>
+              <div class="chips chips-small">
+                <span class="chip">Instagram</span>
+                <span class="chip">Facebook</span>
+                <span class="chip">TikTok</span>
+                <span class="chip">Threads</span>
+                <span class="chip">LINE公式アカウント</span>
+                <span class="chip">WordPress</span>
+              </div>
+            </div>
+            <p class="note">アジア圏を中心にインバウンド販売も担当。特に台湾は、3度の現地営業を経験しています。</p>
+          </div>
+          <p class="note">※施設や案件により、対応してきた範囲は異なります。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ⑪ よくある質問 ============ -->
+<section class="band-ecru">
+  <div class="wrap narrow">
+    <span class="eyebrow">よくある質問</span>
+    <h2>よくある質問</h2>
+    <div class="faq">
+      <details>
+        <summary>どんな宿泊施設でも相談できますか？</summary>
+        <p class="answer">ホテル、旅館、民宿、一棟貸し、キャンプ場、グランピング、ゲストハウスなどを想定しています。まずは現在の販売ページや困りごとを見せていただくところから始めます。</p>
+      </details>
+      <details>
+        <summary>OTAの管理画面まで見てもらえますか？</summary>
+        <p class="answer">はい。必要に応じて、現在のプラン、写真、販売期間、説明文、在庫設定などを一緒に確認します。ログイン情報の扱いは、事前に確認してから進めます。</p>
+      </details>
+      <details>
+        <summary>いきなり大きな改善が必要ですか？</summary>
+        <p class="answer">いいえ。まずはプラン名、写真の順番、口コミ返信、宿泊前メッセージなど、小さく直せるところから見ていきます。</p>
+      </details>
+      <details>
+        <summary>宿泊施設の立ち上げも相談できますか？</summary>
+        <p class="answer">事業コンセプト、販売導線、OTA登録、写真素材、運営ルール、予約前ヒアリングなどの整理は支援できます。ただし、許認可、消防、建築、税務などの判断は、必ず各専門家に確認してください。</p>
+      </details>
+      <details>
+        <summary>AIも使いますか？</summary>
+        <p class="answer">必要に応じて使います。口コミ返信、FAQ、宿泊前メッセージ、月次レポート、プラン文の下書きなどには役立ちます。ただし、AIを使うこと自体を目的にはしません。</p>
+      </details>
+      <details>
+        <summary>成果は保証されますか？</summary>
+        <p class="answer">売上や予約数の増加は保証しません。実施した改善と、その後の反応を正直に見て、次の改善につなげていきます。</p>
+      </details>
+      <details>
+        <summary>費用はどのくらいですか？</summary>
+        <p class="answer">宿泊販売ページ診断は33,000円（税込）〜、販売ページ改善パックは88,000円（税込）〜、月次サポートは55,000円（税込）／月〜を目安にしています。施設の規模や支援範囲によりお見積もりします。</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ⑫ クロージングCTA ============ -->
+<section class="closing">
+  <div class="wrap">
+    <h2>まずは、いまの販売ページを<br>一緒に見ませんか</h2>
+    <p>大がかりな改善の前に、いまあるプラン、写真、口コミから見直せることを一緒に探します。<br>下のボタンから、メールでご連絡ください。</p>
+    <a class="btn js-cta" href="#">宿泊施設の販売ページを相談してみる</a>
+    <div>
+      <span class="mail-hint">ボタンを押すと、メールの下書きが開きます。<br>お名前・施設名などを記入して、そのまま送信してください。</span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ ⑬ フッター ============ -->
+<footer>
+  <div class="wrap">
+    <img class="footer-logo" src="logo.png" alt="きほくコネクト" onerror="this.remove()">
+    <p class="footer-brand">きほくコネクト｜氏原翔平</p>
+    <p class="note" id="footer-email"></p>
+    <ul class="footer-links">
+      <li><a id="link-portfolio" href="#" target="_blank" rel="noopener">ポートフォリオ</a></li>
+      <li><a id="link-lemon" href="#" target="_blank" rel="noopener">伊勢路レモン農園</a></li>
+      <li><a id="link-ai" href="#" target="_blank" rel="noopener">AI導入支援について</a></li>
+    </ul>
+    <p class="copyright">&copy; Kihoku Connect</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* ---- mailto の組み立て ---- */
+  var subject = "宿泊施設サポートの相談";
+  var body = [
+    "氏原さんへ",
+    "",
+    "宿泊施設サポートのページを見て連絡しました。",
+    "",
+    "お名前：",
+    "施設名：",
+    "施設タイプ：",
+    "相談したい内容：",
+    "現在使っているOTA・予約サイト：",
+    "希望する相談方法："
+  ].join("\n");
+
+  var mailto = "mailto:" + CONFIG.EMAIL
+    + "?subject=" + encodeURIComponent(subject)
+    + "&body=" + encodeURIComponent(body);
+
+  document.querySelectorAll(".js-cta").forEach(function(a){
+    a.setAttribute("href", mailto);
+  });
+
+  /* ---- フッターのメール表示とリンク差し替え ---- */
+  var mailP = document.getElementById("footer-email");
+  if (mailP) {
+    var a = document.createElement("a");
+    a.href = "mailto:" + CONFIG.EMAIL;
+    a.textContent = CONFIG.EMAIL;
+    mailP.appendChild(document.createTextNode("お問い合わせ："));
+    mailP.appendChild(a);
+  }
+
+  function setLink(id, url){
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (url && url !== "#") {
+      el.setAttribute("href", url);
+    } else {
+      /* URLが未設定（"#"）のリンクは表示しない。CONFIGにURLを入れると自動で表示されます */
+      var li = el.closest("li");
+      if (li) li.style.display = "none";
+    }
+  }
+  setLink("link-portfolio", CONFIG.PORTFOLIO_URL);
+  setLink("link-lemon", CONFIG.LEMON_URL);
+  setLink("link-ai", CONFIG.AI_SUPPORT_URL);
+
+  /* ---- 販売チャネル・システムの「すべて見る」 ---- */
+  var toggle = document.getElementById("chips-toggle");
+  if (toggle) {
+    toggle.addEventListener("click", function(){
+      var summary = document.getElementById("tool-chips");
+      var full = document.getElementById("tools-full");
+      if (summary) summary.hidden = true;
+      if (full) full.hidden = false;
+    });
+  }
+})();
+</script>
+
+<!-- ============================================================
+  必要な画像ファイル一覧（index.html と同じフォルダに置いてください）
+
+  logo.png     … きほくコネクトのロゴ（フッターで使用／横長・幅140px程度で表示）
+  farm.jpg     … 紀北町の風景写真（ファーストビュー背景で使用／横長推奨）
+  profile.jpg  … 氏原翔平の顔写真（プロフィールセクションで使用／正方形）
+  profile2.jpg … デスクで相談を受ける氏原翔平の写真（「この支援の特徴」で使用／縦4:5）
+
+  ※宿泊施設のイメージ（客室・食事・外観）はSVGイラストで表示しているため、
+    stay1〜3.jpg の画像ファイルは不要です。
+
+  ※画像がない場合も、プレースホルダー表示でレイアウトは崩れません。
+  ※リンク先とメールアドレスは、<head>内の CONFIG を書き換えるだけで差し替えられます。
+============================================================ -->
+</body>
+</html>
